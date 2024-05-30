@@ -29,7 +29,13 @@ export default defineConfig({
     })
   ],
   server: {
-    port: 12345
+    port: 12345,
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:12321',
+    //     changeOrigin: true
+    //   }
+    // }
   },
   resolve: {
     alias: {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { isMobile } from '@/utils/validate.ts'
 import { loginAPI } from '@/api'
 
@@ -33,8 +34,14 @@ const login = async () => {
   // @ts-ignore
   const valid = await formRef.value?.validate(v => v).catch(e => e)
   if (!valid) return
-  const {data} = await loginAPI(form)
-  console.log(data)
+  try {
+    const {msg} = await loginAPI(form)
+    console.log(msg)
+    ElMessage.success(msg)
+  } catch (e: any) {
+    console.dir(e)
+    ElMessage.error(e.msg)
+  }
 }
 </script>
 
