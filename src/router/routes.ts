@@ -3,7 +3,10 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/login'
+    component: () => import('@/views/Home/index.vue'),
+    meta: {
+      title: '首页'
+    }
   },
   {
     path: '/login',
@@ -11,17 +14,26 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        component: import('@/views/Login/components/LoginCard.vue')
+        component: import('@/views/Login/components/LoginCard.vue'),
+        meta: {
+          title: '登录'
+        }
       },
       {
         path: 'register',
-        component: import('@/views/Login/components/RegisterCard.vue')
+        component: import('@/views/Login/components/RegisterCard.vue'),
+        meta: {
+          title: '注册'
+        }
       }
     ]
   },
   {
     path: '/todo-list',
-    component: () => import('@/views/TodoList/index.vue')
+    component: () => import('@/views/TodoList/index.vue'),
+    meta: {
+      title: 'TodoList'
+    }
   }
 ]
 export default routes

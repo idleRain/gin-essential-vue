@@ -42,7 +42,6 @@ const register = async () => {
     ElMessage.success(msg)
   } catch (e: any) {
     console.dir(e)
-    ElMessage.error(e.msg)
   }
 }
 </script>

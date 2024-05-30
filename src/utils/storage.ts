@@ -1,9 +1,8 @@
-export const localGet = (name: string, key?: string) => {
-  const data: any = window.localStorage.getItem(name)
+export const localGet = <T = any>(key: string) => {
   try {
-    return key ? JSON.parse(data)[key] : JSON.parse(data)
-  } catch (err) {
-    return data
+    return JSON.parse(String(localStorage.getItem(key))) as T | null
+  } catch {
+    return localStorage.getItem(key) as T | null
   }
 }
 
@@ -30,7 +29,7 @@ export const sessionSet = (key: string, data: any) => {
 export const sessionGet = <T = any>(key: string) => {
   try {
     return JSON.parse(String(sessionStorage.getItem(key))) as T | null
-  } catch (_) {
+  } catch {
     return sessionStorage.getItem(key) as T | null
   }
 }

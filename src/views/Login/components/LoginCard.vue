@@ -3,9 +3,12 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { isMobile } from '@/utils/validate.ts'
 import { loginAPI } from '@/api'
+import { useUserStore } from '@/store'
+import router from '@/router'
 
 const formRef = ref<FormInstance>()
 const pwdRef = ref()
+const userStore = useUserStore()
 
 // 校验账号
 const validateUsername = (_: any, value: string, callback: any) => {
@@ -35,12 +38,12 @@ const login = async () => {
   const valid = await formRef.value?.validate(v => v).catch(e => e)
   if (!valid) return
   try {
-    const {msg} = await loginAPI(form)
-    console.log(msg)
+    const {msg, data} = await loginAPI(form)
     ElMessage.success(msg)
+    userStore.setToken(data.token)
+    await router.replace('/')
   } catch (e: any) {
     console.dir(e)
-    ElMessage.error(e.msg)
   }
 }
 </script>

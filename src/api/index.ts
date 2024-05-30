@@ -1,11 +1,11 @@
 import request from '@/utils/request.ts'
-import { LoginParams, RegisterParams } from '@/types'
+import { LoginParams, RegisterParams, Userinfo } from '@/types'
 
 /**
  * 登录
  */
 export const loginAPI = (data: LoginParams) => {
-  return request.post<string>('/auth/login', data)
+  return request.post<{ token: string }>('/auth/login', data)
 }
 
 /**
@@ -13,4 +13,11 @@ export const loginAPI = (data: LoginParams) => {
  */
 export const registerAPI = (data: RegisterParams) => {
   return request.post<string>('/auth/register', data)
+}
+
+/**
+ * 获取用户信息
+ */
+export const userinfoAPI = () => {
+  return request.post<{user: Userinfo}>('/auth/info')
 }
